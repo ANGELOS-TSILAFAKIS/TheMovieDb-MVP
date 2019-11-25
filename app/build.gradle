@@ -1,20 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
     defaultConfig {
-        applicationId "com.andcun.themoviedb_mvp"
-        minSdkVersion 15
-        targetSdkVersion 25
+        applicationId "com.themoviedb"
+        minSdkVersion 19
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    defaultConfig {
-        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField("String", "IMAGE_PREFIX", "\"https://image.tmdb.org/t/p/w500\"")
-        buildConfigField("String", "API_KEY", "\"94b8cb1b7ffb4c1a12f49eea1ba53710\"")
+    defaultConfig{
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -22,46 +20,54 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/rxjava.properties'
-    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    //support
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
-    //dagger
-    compile 'com.google.dagger:dagger:2.10'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
+    //Support
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:gridlayout-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 
-    //rxjava
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.9'
+    //RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
-    //retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 
-    //butternknife
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.2.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+    implementation ("com.github.bumptech.glide:recyclerview-integration:4.2.0") {
+        transitive = false
+    }
 
-    //glide
-    compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
+    // Dagger2
+    implementation 'com.google.dagger:dagger:2.16'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.16'
+
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    implementation 'javax.inject:javax.inject:1'
+
+
+    //implementation "com.google.dagger:dagger:2.8"
+    //annotationProcessor "com.google.dagger:dagger-compiler:2.8"
+
+    androidTestImplementation 'junit:junit:4.12'
+
 }
